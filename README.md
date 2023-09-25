@@ -9,3 +9,6 @@
 - [기본 명령어](https://github.com/luenarstery04/TIL/blob/master/Git/basic-command.md)
 - [브랜치 나누기](https://github.com/luenarstery04/TIL/blob/master/Git/branch-command.md)
 - [마크다운 문법](https://github.com/luenarstery04/TIL/blob/master/Git/markdown.md)
+
+### My SQL 문법
+- [데이터베이스와 테이블 생성](https://github.com/luenarstery04/TIL/blob/master/Git/MySQL_1.md)

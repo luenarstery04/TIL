@@ -95,3 +95,28 @@ CREATE TABLE department (
     depName VARCHAR(30) NOT NULL
 );
 ```
+참조 외래키의 이름을 따로 정해줄 수 있다. CONSTRAINT로 지정하면 된다.
+
+```bash
+CREATE TABLE student(
+    stdNo INT NOT NULL PRIMARY KEY,
+    stdName VARCHAR(30) NOT NULL,
+    stdGrade INT NOT NULL DEFAULT 1 CHECK(stdGrad >= AND stdGrade <= 4),
+    depNo INT NOT NULL
+    CONSTRAINT FK_dep_student FOREIGN KEY (depNo) REFERENCES department (depNo)
+);
+```
+외래키 기본키는 한 개만 지정할 수 있는 게 아니라 여러 개 지정할 수도 있다. 외래키 개수만큼 외래키 지정 명령어를 여러 줄 넣으면 된다.
+
+```bash
+CREATE TABLE score (
+	stdNo VARCHAR(10) NOT NULL,
+    courseID VARCHAR(30) NOT NULL,
+	score INT,
+    grade VARCHAR(3),
+    CONSTRAINT FK_score_student FOREIGN KEY (stdNo) REFERENCES student (stdNo),
+    CONSTRAINT FK_score_course FOREIGN KEY (courseID) REFERENCES course (courseID)
+);
+```
+
+더 많은 명령어는 MySQL 사용법을 참조하자.
