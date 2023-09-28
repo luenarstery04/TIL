@@ -260,3 +260,118 @@ def select(self):
 ```
 상품 전체 정보 조회 함수이다.
 
+사실 하는 일은 그다지 없다. cursor로 보내 수행할 sql문을 적고 결과값을 fetchall로 받으면 튜플 형태로 반환한다. 튜플은 수정할 수 없는 형태의 데이터 형식이므로 결과 출력에만 사용한다.
+
+for문을 돌려 결과값을 한 줄씩 가져오고 또 그 줄에서 하나씩 값을 빼내어 출력한다. 다 출력하면 줄을 바꾸고 반복토록 한다.
+
+모든 정보가 출력되면 "모든 상품정보 조회 완료" 메세지와 함께 프로그램이 종료된다.
+
+```python
+def insert(self, product):
+    
+    try:
+        self.connect()
+        sql = "INSERT INTO product VALUES(%s, %s, %s, %s, %s, %s)"
+        prdName = product.get_prdName()
+        values = (product.get_prdNo(), prdName, product.get_prPrice(), product.get_prdMaker(), product.get_prdColor(), product.get_ctgNo())
+        self.cursor.execute(sql, values)
+        self.conn.commit()
+
+        self.disconnect()
+        print(f"신상품 '{prdName}' 등록 완료")
+    except:
+        print("신상 등록 오류")
+```
+신규 상품 등록 함수이다.
+
+여기는 self, product 두 매개변수를 받는다. 앞서 Controller에서 모든 상품들을 input을 통해 입력받고 그것을 Product()로 보낸 것을 보았을 것이다. Product()에는 각 항목들이 private을 통해 보호되고 있어 어떤 상품을 등록했는 지 노출되지 않는다. 값만 받아올 뿐이다.
+
+%s가 붙은 개수만큼 정보가 입력되어 들어간다. try except문을 통해 오류를 검사하고, 수행 중 오류가 발생했다면 오류를 출력하고 메뉴로 보내도록 한다. 아직 초기 프로그램이라 더 복잡한 논리 구조는 들어가있지 않다.
+
+```python
+def update(self, product):
+
+    try:
+        self.connect()
+        sql = "UPDATE product SET prdName=%s, prdPrice=%s, prdMaker=%s, prdColor=%s, ctgNo=%s WHERE prdNo=%s"
+        
+        prdName = product.get_prdName()
+        values = (prdName, product.get_prPrice(), product.get_prdMaker(), product.get_prdColor(), product.get_ctgNo(), product.get_prdNo())
+        self.cursor.execute(sql, values)
+        self.conn.commit()
+
+        self.disconnect()
+        print(f"상품명 '{prdName}' 수정 완료")
+    except:
+        print("상품 수정 오류")
+```
+이미 등록된 상품을 수정하는 함수이다.
+
+상품 번호와 그 외 다른 사항들을 입력 받고 UPDATE 해주는 함수이다. 여기 들어간 sql문 맨 뒤에 조건을 검사하는 WHERE 절이 들어있다. 이곳에서 상품 번호를 조회해 각 항목별 입력값을 업데이트 해준다. 존재하지 않는 번호를 입력하면 당연히 오류 난다.
+
+나머지는 insert 함수와 크게 다르지 않다.
+
+```python
+def delete(self):
+    try:
+        self.connect()
+        pNo = input("삭제할 상품 번호 입력 : ")
+        sql = 'DELETE FROM product WHERE prdNo=' + pNo
+        self.cursor.execute(sql)
+        self.conn.commit()
+
+        self.disconnect()
+        print(f'{pNo}번 상품 삭제 완료')
+
+    except:
+        print("삭제 오류")
+```
+입력받은 상품번호의 상품을 삭제하는 함수이다.
+
+DELETE FROM 구문과 WHERE 절을 사용해 상품번호를 찾아 삭제한다. 삭제가 되었으면 완료 메세지가 뜬다.
+
+```python
+def prd_search(self, pName):
+
+    try:
+        self.connect()
+
+        sql = "SELECT * FROM product WHERE prdName LIKE '%" + pName + "%'"
+
+        self.cursor.execute(sql)
+        result = self.cursor.fetchall()
+
+        for re in result:
+            for r in re:
+                print(r, end=" ")
+            print()
+
+        self.disconnect()
+        print(f"상품명 '{pName}' 검색 완료")
+    except:
+        print("검색 오류")
+
+def maker_search(self, mName):
+
+    try:
+        self.connect()
+
+        sql = "SELECT * FROM product WHERE prdMaker LIKE '%" + mName + "%'"
+        self.cursor.execute(sql)
+        result = self.cursor.fetchall()
+
+        for re in result:
+            for r in re:
+                print(r, end=" ")
+            print()
+
+        self.disconnect()
+        print(f"제조사 '{mName}' 검색 완료")
+    except:
+        print("검색 오류")
+```
+검색으로 들어가면 메뉴가 다시 둘로 나뉘어 상품이름, 제조사별 검색을 실시한다.
+
+LIKE는 각 행에서 특정 문자열이 들어간 항목을 찾아오게 만든다. 예를 들면 제조사가 '삼성'인 모든 제품군을 찾아오는 것이다. 마찬가지로 for문을 돌려 각 항목을 한 줄씩 추출한다.
+
+간단한 프로그램이지만 혼자 생각해내는 것은 많이 힘들었다. 경험의 차이를 극복하려면 더 많은 시간을 투자하는 수 밖에 없다.
