@@ -16,3 +16,6 @@
 
 ### 백엔드 데이터 베이스
 - [Ajax 사용](https://github.com/luenarstery04/TIL/blob/main/Git/Making_book_project.md)
+
+### LinkedList 복습
+- [링크드 리스트 만들기](https://github.com/luenarstery04/TIL/blob/main/Git/Linked_list.md)

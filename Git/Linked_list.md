@@ -254,3 +254,94 @@ return node.data
 ### 2. setter
 
 set이란 기존에 입력된 데이터를 바꿔치기하는 것이다. 여기는 몇 번째 인덱스의 데이터를 무슨 데이터로 바꿀 것인지 알려주는 2개의 매개변수를 받아야 한다.
+
+입력 받은 데이터를 각 자리에 맞게 바꿔치기하려면 getter와 로직이 크게 다르지 않다.
+
+```python
+def __setitem__(self, index, data):
+    if index < 0 or index >= self.length:
+            raise IndexError("인덱스 범위를 벗어났습니다.")
+
+    if index == 0:
+        self.head.data = data
+        return
+
+    if index == self.length -1:
+        self.tail.data = data
+        return
+
+    node = self.head
+    for i in range(0, index):
+        node = node.next
+    
+    node.data = data
+
+    return node.data
+```
+
+인덱스가 0이라면 당연히 head 데이터를 바꿔줄 것이고, 그렇지 않다면 for문을 통해 사용자가 입력한 index까지 내려간 다음 그곳의 node 데이터를 새 데이터로 바꿔버리면 완성된다.
+
+### 3. delete
+
+그럼 데이터를 삭제하려면 어떻게 하면 될까? pop은 맨 마지막 데이터만 없애면 되는 거였다. 따라서 next와 tail 노드를 끊어주면 알아서 사라졌지만, 여기서는 노드 조정을 좀 더 세심하게 해줘야 한다.
+
+특정 인덱스의 데이터를 삭제하는 로직을 생각해보자.
+
+일단 인덱스 범위를 지정하는 조건문은 그대로 들고 온다.
+
+```python
+def __delitem__(self, index):
+    if index < 0 or index >= self.length:
+            raise IndexError("인덱스 범위를 벗어났습니다.")
+    
+    if index == 0:
+        self.head = self.head.next
+        self.length -= 1
+        return
+
+    if index == self.length -1:
+        self.pop()
+        return
+
+```
+
+인덱스가 0이라면 조정할 노드는 하나 뿐이다. head로 연결된 노드를 그 다음 데이터로 이어버리면 되니까. 마지막 인덱스라면 그저 pop 함수 불러와 실행해버리면 끝난다.
+
+그럼 중간에 낀 데이터는 어떻게 없애버릴 수 있을까?
+
+head를 prev 변수값에 넣고 for문을 통해 index까지 접근한다. 여기서 주의해야 할 점은 range(0, index)를 그냥 넣으면 원하는 index+1 위치의 값을 날려버린다는 사실이다. 노드를 재연결하는 과정도 조금 복잡하다.
+
+```python
+prev = self.head
+for i in range(0, index -1):
+    prev = prev.next
+
+prev.next = prev.next.next
+self.length -= 1
+```
+
+현재 prev는 head에 있다. for문을 통해 그 다음 값을 새로운 prev에 넣는다. 원하는 위치까지 간 노드의 바로 다음 노드와 연결시키면 노드가 끊어진 데이터는 없어져버린다. prev 변수의 다음 다음 값을 prev.next에 넣으면 노드가 재연결되는 것이다.
+
+아래는 완전한 함수이다.
+
+```python
+def __delitem__(self, index):
+    if index < 0 or index >= self.length:
+        raise IndexError("인덱스 범위를 벗어났습니다.")
+    
+    if index == 0:
+        self.head = self.head.next
+        self.length -= 1
+        return
+    
+    if index == self.length - 1:
+        self.pop()
+        return
+    
+    prev = self.head
+    for i in range(0, index -1):
+        prev = prev.next
+    
+    prev.next = prev.next.next
+    self.length -= 1
+```
