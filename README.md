@@ -19,3 +19,6 @@
 
 ### LinkedList 복습
 - [링크드 리스트 만들기](https://github.com/luenarstery04/TIL/blob/main/Git/Linked_list.md)
+
+### Pandas와 Numpy 데이터프레임 조작
+- [Series 만들기](https://github.com/luenarstery04/TIL/blob/main/Git/Series_Pandas.md)
