@@ -4,6 +4,10 @@
 
 ## 단계별로 풀어보기
 
+### 입출력과 사칙연산
+
+- [1챕터]()
+
 ### 반복문
 
 - [백준 8393번](https://github.com/luenarstery04/TIL/blob/main/BaekJoon/3%EB%8B%A8%EA%B3%84_%EB%B0%98%EB%B3%B5%EB%AC%B8/BJ_8393.md)
