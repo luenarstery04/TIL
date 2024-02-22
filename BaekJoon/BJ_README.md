@@ -6,7 +6,7 @@
 
 ### 입출력과 사칙연산
 
-- [1챕터]()
+- [1챕터](https://github.com/luenarstery04/TIL/blob/main/BaekJoon/1%EB%8B%A8%EA%B3%84_%EC%9E%85%EC%B6%9C%EB%A0%A5%EA%B3%BC%EC%82%AC%EC%B9%99%EC%97%B0%EC%82%B0/BJ_basic.md)
 
 ### 반복문
 
