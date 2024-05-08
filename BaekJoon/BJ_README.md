@@ -15,3 +15,8 @@
 - [백준 25314번](https://github.com/luenarstery04/TIL/blob/main/BaekJoon/3%EB%8B%A8%EA%B3%84_%EB%B0%98%EB%B3%B5%EB%AC%B8/BJ_25314.md)
 - [백준 15552번, 11021번, 11022번](https://github.com/luenarstery04/TIL/blob/main/BaekJoon/3%EB%8B%A8%EA%B3%84_%EB%B0%98%EB%B3%B5%EB%AC%B8/BJ_15552.md)
 - [백준 2438번](https://github.com/luenarstery04/TIL/blob/main/BaekJoon/3%EB%8B%A8%EA%B3%84_%EB%B0%98%EB%B3%B5%EB%AC%B8/BJ_2438.md)
+- [백준 10952번, 10951번]()
+
+### 1차원 배열
+
+- [백준 10807번, 10871번]()
